@@ -2,29 +2,35 @@ tableextension 50156 EInvSalesCrMemoHeader extends "Sales Cr.Memo Header"
 {
     fields
     {
-        field(50150; "Cancel Remarks"; Enum "Cancel Remarks")
+        field(50160; "APIS_Cancel Remarks"; Enum "Cancel Remarks")
         {
             DataClassification = ToBeClassified;
+            Caption = 'Cancel Remarks';
         }
-        field(50151; "Irn Cancel DateTime"; DateTime)
+        field(50161; "APIS_Irn Cancel DateTime"; DateTime)
         {
             DataClassification = ToBeClassified;
+            Caption = 'Irn Cancel DateTime';
         }
-        field(50152; "LR/RR No."; code[20])
+        field(50162; "APIS_LR/RR No."; code[20])
         {
             DataClassification = EndUserIdentifiableInformation;
+            Caption = 'LR/RR No.';
         }
-        field(50153; "LR/RR Date"; Date)
+        field(50163; "APIS_LR/RR Date"; Date)
         {
             DataClassification = EndUserIdentifiableInformation;
+            Caption = 'LR/RR Date';
         }
-        field(50154; "E-Way Bill Date Time"; DateTime)
+        field(50164; "APIS_E-Way Bill Date Time"; DateTime)
         {
             DataClassification = ToBeClassified;
+            Caption = 'E-Way Bill Date Time';
         }
-        field(50155; "E-Way Bill Cancel DateTime"; DateTime)
+        field(50165; "APIS_E-Way Bill CancelDateTime"; DateTime)
         {
             DataClassification = ToBeClassified;
+            Caption = 'E-Way Bill Cancel DateTime';
         }
     }
 }

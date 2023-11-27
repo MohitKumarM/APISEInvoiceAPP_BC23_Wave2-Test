@@ -38,21 +38,21 @@ pageextension 50153 EInvPostedSalesInvoice extends "Posted Sales Invoice"
         }
         addafter("Cancel Reason")
         {
-            field("Cancel Remarks"; Rec."Cancel Remarks")
+            field("Cancel Remarks"; Rec."APIS_Cancel Remarks")
             {
                 ApplicationArea = all;
             }
-            field("Irn Cancel DateTime"; Rec."Irn Cancel DateTime")
-            {
-                ApplicationArea = all;
-                Editable = false;
-            }
-            field("E-Way Bill Date Time"; Rec."E-Way Bill Date Time")
+            field("Irn Cancel DateTime"; Rec."APIS_Irn Cancel DateTime")
             {
                 ApplicationArea = all;
                 Editable = false;
             }
-            field("E-Way Bill Cancel DateTime"; Rec."E-Way Bill Cancel DateTime")
+            field("E-Way Bill Date Time"; Rec."APIS_E-Way Bill Date Time")
+            {
+                ApplicationArea = all;
+                Editable = false;
+            }
+            field("E-Way Bill Cancel DateTime"; Rec."APIS_E-Way Bill CancelDateTime")
             {
                 ApplicationArea = all;
                 Editable = false;
@@ -117,7 +117,7 @@ pageextension 50153 EInvPostedSalesInvoice extends "Posted Sales Invoice"
                     begin
                         if Confirm('Do you want to Cancel Irn No.?', false) then begin
                             Rec.TestField("IRN Hash");
-                            Rec.TestField("Irn Cancel DateTime", 0DT);
+                            Rec.TestField("APIS_Irn Cancel DateTime", 0DT);
                             Clear(EInvoiceGeneration);
                             EInvoiceGeneration.CancelIRN(Rec."No.", 1);
                         end
@@ -136,7 +136,7 @@ pageextension 50153 EInvPostedSalesInvoice extends "Posted Sales Invoice"
                     begin
                         if Confirm('Do you want to Generate E-Way Bill No.?', false) then begin
                             Rec.TestField("IRN Hash");
-                            Rec.TestField("Irn Cancel DateTime", 0DT);
+                            Rec.TestField("APIS_Irn Cancel DateTime", 0DT);
                             Rec.TestField("E-Way Bill No.", '');
                             Clear(EWaybillGeneration);
                             EWaybillGeneration.GenerateEWayBillFromIRN(Rec."No.", 1);
@@ -152,7 +152,7 @@ pageextension 50153 EInvPostedSalesInvoice extends "Posted Sales Invoice"
                         EWaybillGeneration: Codeunit "E-Way Bill Generartion";
                     begin
                         if Confirm('Do you want to Cancel E-Way Bill No.?', false) then begin
-                            Rec.TestField("E-Way Bill Cancel DateTime", 0DT);
+                            Rec.TestField("APIS_E-Way Bill CancelDateTime", 0DT);
                             Rec.TestField("E-Way Bill No.");
                             Clear(EWaybillGeneration);
                             EWaybillGeneration.CancelEWayBill(Rec."No.", 1);

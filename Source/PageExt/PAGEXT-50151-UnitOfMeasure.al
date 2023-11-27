@@ -4,7 +4,7 @@ pageextension 50151 EInvUnitOfMeasure extends "Units of Measure"
     {
         addafter(Description)
         {
-            field("UOM For E Invoicing"; Rec."UOM For E Invoicing")
+            field("UOM For E Invoicing"; Rec."APIS_UOM For E Invoicing")
             {
                 ApplicationArea = all;
             }

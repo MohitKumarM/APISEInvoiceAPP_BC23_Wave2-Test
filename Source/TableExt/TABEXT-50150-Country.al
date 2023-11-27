@@ -2,9 +2,11 @@ tableextension 50150 EInvCountry extends "Country/Region"
 {
     fields
     {
-        field(50150; "Country Code for E Invoicing"; Code[2])
+        field(50151; "APIS_Country CodeforEInvoicing"; Code[2])
         {
+            Caption = 'Country Code for E Invoicing';
             DataClassification = ToBeClassified;
         }
+
     }
 }

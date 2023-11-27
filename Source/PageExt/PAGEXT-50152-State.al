@@ -4,7 +4,7 @@ pageextension 50152 EInvState extends States
     {
         addafter("State Code (GST Reg. No.)")
         {
-            field("State Code for E-Invoicing"; Rec."State Code for E-Invoicing")
+            field("State Code for E-Invoicing"; Rec."APIS_State Code forE-Invoicing")
             {
                 ApplicationArea = all;
             }

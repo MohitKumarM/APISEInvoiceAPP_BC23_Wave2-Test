@@ -4,11 +4,11 @@ pageextension 50156 GSTRegsitrationNo extends "GST Registration Nos."
     {
         addafter(Description)
         {
-            field("User Name"; Rec."User Name")
+            field("User Name"; Rec."APIS_User Name")
             {
                 ApplicationArea = all;
             }
-            field(Password; Rec.Password)
+            field(Password; Rec.APIS_Password)
             {
                 ApplicationArea = all;
             }

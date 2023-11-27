@@ -98,7 +98,7 @@ codeunit 50006 "E-Way Bill Generartion"
             DocumentType::"Transfer Shipment":
                 begin
                     if EWay_transferShipmentHeader.get(DocNo) then begin
-                        Irnno := EWay_transferShipmentHeader."IRN Hash";
+                        Irnno := EWay_transferShipmentHeader."APIS_IRN Hash";
                         if EWay_transferShipmentHeader."Distance (Km)" <> 0 then
                             Distance := EWay_transferShipmentHeader."Distance (Km)"
                         else
@@ -193,12 +193,12 @@ codeunit 50006 "E-Way Bill Generartion"
                             TransID := '';
                             TransName := '';
                         end;
-                        if not (Trans_SalesCrMemoHeader."LR/RR Date" = 0D) then
-                            TransDocDt := FORMAT(Trans_SalesCrMemoHeader."LR/RR Date", 0, '<Day,2>/<Month,2>/<Year4>')
+                        if not (Trans_SalesCrMemoHeader."APIS_LR/RR Date" = 0D) then
+                            TransDocDt := FORMAT(Trans_SalesCrMemoHeader."APIS_LR/RR Date", 0, '<Day,2>/<Month,2>/<Year4>')
                         else
                             TransDocDt := '';
-                        if not (Trans_SalesCrMemoHeader."LR/RR No." = '') then
-                            TransDocNo := Trans_SalesCrMemoHeader."LR/RR No."
+                        if not (Trans_SalesCrMemoHeader."APIS_LR/RR No." = '') then
+                            TransDocNo := Trans_SalesCrMemoHeader."APIS_LR/RR No."
                         else
                             TransDocNo := '';
                         if not (Trans_SalesCrMemoHeader."Vehicle No." = '') then
@@ -319,7 +319,7 @@ codeunit 50006 "E-Way Bill Generartion"
                             Location := Ship_SalesInvoiceHeader."Ship-to City";
                             PinCode := Ship_SalesInvoiceHeader."Ship-to Post Code";
                             if Ship_State.get(Ship_SalesInvoiceHeader."GST Ship-to State Code") then
-                                StateCode := Ship_State."State Code for E-Invoicing";
+                                StateCode := Ship_State."APIS_State Code forE-Invoicing";
                             IsExpShipDtls := true;
                         end;
                     end;
@@ -333,7 +333,7 @@ codeunit 50006 "E-Way Bill Generartion"
                             Location := Ship_SalesCrMemoHeader."Ship-to City";
                             PinCode := Ship_SalesCrMemoHeader."Ship-to Post Code";
                             if Ship_State.get(Ship_SalesCrMemoHeader."GST Ship-to State Code") then
-                                StateCode := Ship_State."State Code for E-Invoicing";
+                                StateCode := Ship_State."APIS_State Code forE-Invoicing";
                             IsExpShipDtls := true;
                         end;
                     end;
@@ -446,8 +446,8 @@ codeunit 50006 "E-Way Bill Generartion"
     begin
         if GSTRegistrationNos.Get(GSTIN) then;
         JsonObj.Add('action', 'ACCESSTOKEN');
-        JsonObj.Add('UserName', GSTRegistrationNos."User Name");
-        JsonObj.Add('Password', GSTRegistrationNos.Password);
+        JsonObj.Add('UserName', GSTRegistrationNos."APIS_User Name");
+        JsonObj.Add('Password', GSTRegistrationNos."APIS_Password");
         JsonObj.Add('Gstin', GSTRegistrationNos.Code);
         JsonObj.WriteTo(JsonTxt);
         // Message(JsonTxt);
@@ -495,7 +495,7 @@ codeunit 50006 "E-Way Bill Generartion"
         EinvoiceHttpHeader.Add('client_secret', G_Client_Secret);
         EinvoiceHttpHeader.Add('IPAddress', G_IP_Address);
         EinvoiceHttpHeader.Add('Content-Type', 'application/json');
-        EinvoiceHttpHeader.Add('user_name', GSTRegistrationNos."User Name");
+        EinvoiceHttpHeader.Add('user_name', GSTRegistrationNos."APIS_User Name");
         EinvoiceHttpHeader.Add('Gstin', GSTRegistrationNos.Code);
         EinvoiceHttpRequest.Content := EinvoiceHttpContent;
         EinvoiceHttpRequest.SetRequestUri(G_E_Invoice_URL);
@@ -535,8 +535,8 @@ codeunit 50006 "E-Way Bill Generartion"
                     begin
                         if SalesInvoiceHeader.get(DocNo) then begin
                             SalesInvoiceHeader."E-Way Bill No." := EwayBillN;
-                            SalesInvoiceHeader."E-Way Bill Date Time" := EWayBillDate;
-                            SalesInvoiceHeader."E-Way Bill Cancel DateTime" := 0DT;
+                            SalesInvoiceHeader."APIS_E-Way Bill Date Time" := EWayBillDate;
+                            SalesInvoiceHeader."APIS_E-Way Bill CancelDateTime" := 0DT;
                             SalesInvoiceHeader.Modify();
                         end;
                         EInvoiceLog.Reset();
@@ -568,8 +568,8 @@ codeunit 50006 "E-Way Bill Generartion"
                     begin
                         if SalesCrMemoHeader.get(DocNo) then begin
                             SalesCrMemoHeader."E-Way Bill No." := EwayBillN;
-                            SalesCrMemoHeader."E-Way Bill Date Time" := EWayBillDate;
-                            SalesCrMemoHeader."E-Way Bill Cancel DateTime" := 0DT;
+                            SalesCrMemoHeader."APIS_E-Way Bill Date Time" := EWayBillDate;
+                            SalesCrMemoHeader."APIS_E-Way Bill CancelDateTime" := 0DT;
                             SalesCrMemoHeader.Modify();
                         end;
                         EInvoiceLog.Reset();
@@ -600,9 +600,9 @@ codeunit 50006 "E-Way Bill Generartion"
                 DocumentType::"Transfer Shipment":
                     begin
                         if TransferShipmentHeader.get(DocNo) then begin
-                            TransferShipmentHeader."E-Way Bill No." := EwayBillN;
-                            TransferShipmentHeader."E-Way Bill Date Time" := EWayBillDate;
-                            TransferShipmentHeader."E-Way Bill Cancel DateTime" := 0DT;
+                            TransferShipmentHeader."APIS_E-Way Bill No." := EwayBillN;
+                            TransferShipmentHeader."APIS_E-Way Bill Date Time" := EWayBillDate;
+                            TransferShipmentHeader."APIS_E-Way Bill CancelDateTime" := 0DT;
                             TransferShipmentHeader.Modify();
                         end;
                         EInvoiceLog.Reset();
@@ -747,7 +747,7 @@ codeunit 50006 "E-Way Bill Generartion"
                         if SalesInvoiceHeader.get(DocNo) then begin
                             if EWayCancel then begin
                                 SalesInvoiceHeader."E-Way Bill No." := '';
-                                SalesInvoiceHeader."E-Way Bill Cancel DateTime" := EWayBillDate;
+                                SalesInvoiceHeader."APIS_E-Way Bill CancelDateTime" := EWayBillDate;
                                 SalesInvoiceHeader.Modify();
                             end;
                         end;
@@ -781,7 +781,7 @@ codeunit 50006 "E-Way Bill Generartion"
                         if SalesCrMemoHeader.get(DocNo) then begin
                             if EWayCancel then begin
                                 SalesCrMemoHeader."E-Way Bill No." := '';
-                                SalesCrMemoHeader."E-Way Bill Cancel DateTime" := EWayBillDate;
+                                SalesCrMemoHeader."APIS_E-Way Bill CancelDateTime" := EWayBillDate;
                                 SalesCrMemoHeader.Modify();
                             end;
                         end;
@@ -814,8 +814,8 @@ codeunit 50006 "E-Way Bill Generartion"
                     begin
                         if TransferShipmentHeader.get(DocNo) then begin
                             if EWayCancel then begin
-                                TransferShipmentHeader."E-Way Bill No." := '';
-                                TransferShipmentHeader."E-Way Bill Cancel DateTime" := EWayBillDate;
+                                TransferShipmentHeader."APIS_E-Way Bill No." := '';
+                                TransferShipmentHeader."APIS_E-Way Bill CancelDateTime" := EWayBillDate;
                                 TransferShipmentHeader.Modify();
                             end;
                         end;
@@ -868,7 +868,7 @@ codeunit 50006 "E-Way Bill Generartion"
                         GSTIN := format(EWB_SalesInoviceHeader."Location GST Reg. No.");
                         EWBNo := format(EWB_SalesInoviceHeader."E-Way Bill No.");
                         CancelReason := format(EWB_SalesInoviceHeader."Cancel Reason");
-                        CancelRemarks := format(EWB_SalesInoviceHeader."Cancel Remarks");
+                        CancelRemarks := format(EWB_SalesInoviceHeader."APIS_Cancel Remarks");
                     end;
                 end;
             DocumentType::"Credit Memo":
@@ -877,7 +877,7 @@ codeunit 50006 "E-Way Bill Generartion"
                         GSTIN := format(EWB_SalesCrMemoHeader."Location GST Reg. No.");
                         EWBNo := format(EWB_SalesCrMemoHeader."E-Way Bill No.");
                         CancelReason := format(EWB_SalesCrMemoHeader."Cancel Reason");
-                        CancelRemarks := format(EWB_SalesCrMemoHeader."Cancel Remarks");
+                        CancelRemarks := format(EWB_SalesCrMemoHeader."APIS_Cancel Remarks");
                     end;
                 end;
             DocumentType::"Transfer Shipment":
@@ -885,9 +885,9 @@ codeunit 50006 "E-Way Bill Generartion"
                     if EWB_TransferShipmentHeader.get(DocNo) then begin
                         if EWB_Location.get(EWB_TransferShipmentHeader."Transfer-from Code") then
                             GSTIN := format(EWB_Location."GST Registration No.");
-                        EWBNo := format(EWB_TransferShipmentHeader."E-Way Bill No.");
-                        CancelReason := format(EWB_TransferShipmentHeader."Cancel Reason");
-                        CancelRemarks := format(EWB_TransferShipmentHeader."Cancel Remarks");
+                        EWBNo := format(EWB_TransferShipmentHeader."APIS_E-Way Bill No.");
+                        CancelReason := format(EWB_TransferShipmentHeader."APIS_Cancel Reason");
+                        CancelRemarks := format(EWB_TransferShipmentHeader."APIS_Cancel Remarks");
                     end;
                 end;
         end;

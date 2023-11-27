@@ -4,7 +4,7 @@ pageextension 50150 EInvCountry extends "Countries/Regions"
     {
         addafter("EU Country/Region Code")
         {
-            field("Country Code for E Invoicing"; Rec."Country Code for E Invoicing")
+            field("Country Code for E Invoicing"; Rec."APIS_Country CodeforEInvoicing")
             {
                 ApplicationArea = all;
             }

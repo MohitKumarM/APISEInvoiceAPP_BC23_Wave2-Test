@@ -2,20 +2,24 @@ tableextension 50155 EInvSalesInvoiceHeader extends "Sales Invoice Header"
 {
     fields
     {
-        field(50150; "Cancel Remarks"; Enum "Cancel Remarks")
+        field(50160; "APIS_Cancel Remarks"; Enum "Cancel Remarks")
         {
+            Caption = 'Cancel Remarks';
             DataClassification = ToBeClassified;
         }
-        field(50151; "Irn Cancel DateTime"; DateTime)
+        field(50161; "APIS_Irn Cancel DateTime"; DateTime)
         {
+            Caption = 'Irn Cancel DateTime';
             DataClassification = ToBeClassified;
         }
-        field(50152; "E-Way Bill Date Time"; DateTime)
+        field(50162; "APIS_E-Way Bill Date Time"; DateTime)
         {
+            Caption = 'E-Way Bill Date Time';
             DataClassification = ToBeClassified;
         }
-        field(50153; "E-Way Bill Cancel DateTime"; DateTime)
+        field(50163; "APIS_E-Way Bill CancelDateTime"; DateTime)
         {
+            Caption = 'E-Way Bill Cancel DateTime';
             DataClassification = ToBeClassified;
         }
     }

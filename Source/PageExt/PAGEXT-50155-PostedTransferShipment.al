@@ -18,50 +18,50 @@ pageextension 50155 EInvPostedTransferShipment extends "Posted Transfer Shipment
         {
             group("E-Invoice Information")
             {
-                field("IRN Hash"; Rec."IRN Hash")
+                field("IRN Hash"; Rec."APIS_IRN Hash")
                 {
                     ApplicationArea = all;
                     Editable = false;
                 }
-                field("Acknowledgement No."; Rec."Acknowledgement No.")
+                field("Acknowledgement No."; Rec."APIS_Acknowledgement No.")
                 {
                     ApplicationArea = all;
                     Editable = false;
                 }
-                field("Acknowledgement Date"; Rec."Acknowledgement Date")
+                field("Acknowledgement Date"; Rec."APIS_Acknowledgement Date")
                 {
                     ApplicationArea = all;
                     Editable = false;
                 }
-                field("QR Code"; Rec."QR Code")
+                field("QR Code"; Rec."APIS_QR Code")
                 {
                     ApplicationArea = all;
                     Editable = false;
                 }
-                field("Cancel Reason"; Rec."Cancel Reason")
+                field("Cancel Reason"; Rec."APIS_Cancel Reason")
                 {
                     ApplicationArea = all;
                 }
-                field("Cancel Remarks"; Rec."Cancel Remarks")
+                field("Cancel Remarks"; Rec."APIS_Cancel Remarks")
                 {
                     ApplicationArea = all;
                 }
-                field("Irn Cancel DateTime"; Rec."Irn Cancel DateTime")
-                {
-                    ApplicationArea = all;
-                    Editable = false;
-                }
-                field("E-Way Bill No."; Rec."E-Way Bill No.")
+                field("Irn Cancel DateTime"; Rec."APIS_Irn Cancel DateTime")
                 {
                     ApplicationArea = all;
                     Editable = false;
                 }
-                field("E-Way Bill Date Time"; Rec."E-Way Bill Date Time")
+                field("E-Way Bill No."; Rec."APIS_E-Way Bill No.")
                 {
                     ApplicationArea = all;
                     Editable = false;
                 }
-                field("E-Way Bill Cancel DateTime"; Rec."E-Way Bill Cancel DateTime")
+                field("E-Way Bill Date Time"; Rec."APIS_E-Way Bill Date Time")
+                {
+                    ApplicationArea = all;
+                    Editable = false;
+                }
+                field("E-Way Bill Cancel DateTime"; Rec."APIS_E-Way Bill CancelDateTime")
                 {
                     ApplicationArea = all;
                     Editable = false;
@@ -120,8 +120,8 @@ pageextension 50155 EInvPostedTransferShipment extends "Posted Transfer Shipment
                         EInvoiceGeneration: Codeunit "E-Invoice Generation";
                     begin
                         if Confirm('Do you want to Cancel Irn No.?', false) then begin
-                            Rec.TestField("IRN Hash");
-                            Rec.TestField("Irn Cancel DateTime", 0DT);
+                            Rec.TestField("APIS_IRN Hash");
+                            Rec.TestField("APIS_Irn Cancel DateTime", 0DT);
                             Clear(EInvoiceGeneration);
                             EInvoiceGeneration.CancelIRN(Rec."No.", 3);
                         end
@@ -139,9 +139,9 @@ pageextension 50155 EInvPostedTransferShipment extends "Posted Transfer Shipment
                         EWaybillGeneration: Codeunit "E-Way Bill Generartion";
                     begin
                         if Confirm('Do you want to Generate E-Way Bill No.?', false) then begin
-                            Rec.TestField("IRN Hash");
-                            Rec.TestField("Irn Cancel DateTime", 0DT);
-                            Rec.TestField("E-Way Bill No.", '');
+                            Rec.TestField("APIS_IRN Hash");
+                            Rec.TestField("APIS_Irn Cancel DateTime", 0DT);
+                            Rec.TestField("APIS_E-Way Bill No.", '');
                             Clear(EWaybillGeneration);
                             EWaybillGeneration.GenerateEWayBillFromIRN(Rec."No.", 3);
                         end
@@ -156,8 +156,8 @@ pageextension 50155 EInvPostedTransferShipment extends "Posted Transfer Shipment
                         EWaybillGeneration: Codeunit "E-Way Bill Generartion";
                     begin
                         if Confirm('Do you want to Cancel E-Way Bill No.?', false) then begin
-                            Rec.TestField("E-Way Bill Cancel DateTime", 0DT);
-                            Rec.TestField("E-Way Bill No.");
+                            Rec.TestField("APIS_E-Way Bill CancelDateTime", 0DT);
+                            Rec.TestField("APIS_E-Way Bill No.");
                             Clear(EWaybillGeneration);
                             EWaybillGeneration.CancelEWayBill(Rec."No.", 3);
                         end

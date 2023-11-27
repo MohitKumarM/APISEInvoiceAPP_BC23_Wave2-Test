@@ -80,8 +80,8 @@ codeunit 50005 "E-Invoice Generation"
             DocumentType::"Transfer Shipment":
                 begin
                     if TransferShipmentHeader.get(DocumentNo) then begin
-                        if TransferShipmentHeader."IRN Hash" <> '' then
-                            Error('Irn has alreday Generated for this Document No. %1 and Irn No. is %2', TransferShipmentHeader."No.", TransferShipmentHeader."IRN Hash");
+                        if TransferShipmentHeader."APIS_IRN Hash" <> '' then
+                            Error('Irn has alreday Generated for this Document No. %1 and Irn No. is %2', TransferShipmentHeader."No.", TransferShipmentHeader."APIS_IRN Hash");
                         if Location.get(TransferShipmentHeader."Transfer-from Code") then
                             GSTIN := Location."GST Registration No.";
                     end;
@@ -219,7 +219,7 @@ codeunit 50005 "E-Invoice Generation"
                 ExportCase := true;
                 CurrencyCode := Exp_SalesInvoiceHeader."Currency Code";
                 if Country.get(Exp_SalesInvoiceHeader."Bill-to Country/Region Code") then
-                    CountryCode := Country."Country Code for E Invoicing";
+                    CountryCode := Country."APIS_Country CodeforEInvoicing";
             end;
         end else
             if Exp_SalesCreditMemoHeader.get(DocumentNo) then begin
@@ -227,7 +227,7 @@ codeunit 50005 "E-Invoice Generation"
                     ExportCase := true;
                     CurrencyCode := Exp_SalesCreditMemoHeader."Currency Code";
                     if Country.get(Exp_SalesCreditMemoHeader."Bill-to Country/Region Code") then
-                        CountryCode := Country."Country Code for E Invoicing";
+                        CountryCode := Country."APIS_Country CodeforEInvoicing";
                 end;
             end;
         WriteExpDtls(JReadExpDtls, CurrencyCode, CountryCode, ExportCase);
@@ -283,7 +283,7 @@ codeunit 50005 "E-Invoice Generation"
                 SLocCity := Sell_Location.City;
                 SPostCode := Sell_Location."Post Code";
                 if Sell_State.Get(Sell_Location."State Code") then
-                    S_StateCode := Sell_State."State Code for E-Invoicing";
+                    S_StateCode := Sell_State."APIS_State Code forE-Invoicing";
                 SPhNo := Sell_Location."Phone No.";
                 SEmail := Format(Sell_Location."E-Mail");
             end;
@@ -301,7 +301,7 @@ codeunit 50005 "E-Invoice Generation"
                     SLocCity := Sell_Location.City;
                     SPostCode := Sell_Location."Post Code";
                     if Sell_State.Get(Sell_Location."State Code") then
-                        S_StateCode := Sell_State."State Code for E-Invoicing";
+                        S_StateCode := Sell_State."APIS_State Code forE-Invoicing";
                     SPhNo := Sell_Location."Phone No.";
                     SEmail := Format(Sell_Location."E-Mail");
                 end;
@@ -319,7 +319,7 @@ codeunit 50005 "E-Invoice Generation"
                     SLocCity := Sell_Location.City;
                     SPostCode := Sell_Location."Post Code";
                     if Sell_State.Get(Sell_Location."State Code") then
-                        S_StateCode := Sell_State."State Code for E-Invoicing";
+                        S_StateCode := Sell_State."APIS_State Code forE-Invoicing";
                     SPhNo := Sell_Location."Phone No.";
                     SEmail := Format(Sell_Location."E-Mail");
                 end;
@@ -397,7 +397,7 @@ codeunit 50005 "E-Invoice Generation"
                 BPostCode := Buyr_SalesInvoiceHeader."Bill-to Post Code";
                 Buyr_State.Reset();
                 if Buyr_State.get(Buyr_SalesInvoiceHeader."GST Bill-to State Code") then
-                    B_StateCode := Buyr_State."State Code for E-Invoicing";
+                    B_StateCode := Buyr_State."APIS_State Code forE-Invoicing";
             end;
             BPhNo := '';
             BEmail := '';
@@ -424,7 +424,7 @@ codeunit 50005 "E-Invoice Generation"
                 BPostCode := Buyr_SalesCrMemoHeader."Bill-to Post Code";
                 Buyr_State.Reset();
                 if Buyr_State.get(Buyr_SalesCrMemoHeader."GST Bill-to State Code") then
-                    B_StateCode := Buyr_State."State Code for E-Invoicing";
+                    B_StateCode := Buyr_State."APIS_State Code forE-Invoicing";
             end;
             BPhNo := '';
             BEmail := '';
@@ -452,7 +452,7 @@ codeunit 50005 "E-Invoice Generation"
                 BPostCode := Buyr_Location."Post Code";
                 Buyr_State.Reset();
                 if Buyr_State.Get(Buyr_Location."State Code") then
-                    B_StateCode := Buyr_State."State Code for E-Invoicing";
+                    B_StateCode := Buyr_State."APIS_State Code forE-Invoicing";
                 BPhNo := '';
                 BEmail := ''
             end;
@@ -543,7 +543,7 @@ codeunit 50005 "E-Invoice Generation"
                     Sh_StateCode := '96';
                 end else begin
                     if Ship_State.get(Ship_SalesInvoiceHeader."GST Ship-to State Code") then
-                        Sh_StateCode := Ship_State."State Code for E-Invoicing";
+                        Sh_StateCode := Ship_State."APIS_State Code forE-Invoicing";
                     ShPostCode := Ship_SalesInvoiceHeader."Ship-to Post Code";
                 end;
             end;
@@ -572,7 +572,7 @@ codeunit 50005 "E-Invoice Generation"
                     end else begin
                         if Ship_State.get(Ship_SalesCreditMemoHeader."GST Ship-to State Code") then
                             ShPostCode := Ship_SalesCreditMemoHeader."Ship-to Post Code";
-                        Sh_StateCode := Ship_State."State Code for E-Invoicing";
+                        Sh_StateCode := Ship_State."APIS_State Code forE-Invoicing";
                     end;
                 end;
             end;
@@ -774,7 +774,7 @@ codeunit 50005 "E-Invoice Generation"
                             UnitofMeasure.RESET;
                             UnitofMeasure.SETRANGE(Code, Item_SalesInvoiceLine."Unit of Measure Code");
                             IF UnitofMeasure.FINDFIRST THEN
-                                UOM := UnitofMeasure."UOM For E Invoicing"
+                                UOM := UnitofMeasure."APIS_UOM For E Invoicing"
                             ELSE
                                 UOM := 'OTH';
                             UnitPrice := abs(Item_SalesInvoiceLine."Unit Price" / CuurencyFactor);
@@ -809,7 +809,7 @@ codeunit 50005 "E-Invoice Generation"
                             UnitofMeasure.RESET;
                             UnitofMeasure.SETRANGE(Code, Item_SalesCreditMemoLine."Unit of Measure Code");
                             IF UnitofMeasure.FINDFIRST THEN
-                                UOM := UnitofMeasure."UOM For E Invoicing"
+                                UOM := UnitofMeasure."APIS_UOM For E Invoicing"
                             ELSE
                                 UOM := 'OTH';
                             UnitPrice := abs(Item_SalesCreditMemoLine."Unit Price" / CuurencyFactor);
@@ -840,7 +840,7 @@ codeunit 50005 "E-Invoice Generation"
                             UnitofMeasure.RESET;
                             UnitofMeasure.SETRANGE(Code, Item_TranferShipmentLine."Unit of Measure Code");
                             IF UnitofMeasure.FINDFIRST THEN
-                                UOM := UnitofMeasure."UOM For E Invoicing"
+                                UOM := UnitofMeasure."APIS_UOM For E Invoicing"
                             ELSE
                                 UOM := 'OTH';
                             UnitPrice := abs(Item_TranferShipmentLine."Unit Price" / CuurencyFactor);
@@ -1020,8 +1020,8 @@ codeunit 50005 "E-Invoice Generation"
     begin
         if GSTRegistrationNos.Get(GSTIN) then;
         JsonObj.Add('action', 'ACCESSTOKEN');
-        JsonObj.Add('UserName', GSTRegistrationNos."User Name");
-        JsonObj.Add('Password', GSTRegistrationNos.Password);
+        JsonObj.Add('UserName', GSTRegistrationNos."APIS_User Name");
+        JsonObj.Add('Password', GSTRegistrationNos."APIS_Password");
         JsonObj.Add('Gstin', GSTRegistrationNos.Code);
         JsonObj.WriteTo(JsonTxt);
         // Message(JsonTxt);
@@ -1078,7 +1078,7 @@ codeunit 50005 "E-Invoice Generation"
         EinvoiceHttpHeader.Add('client_secret', G_Client_Secret);
         EinvoiceHttpHeader.Add('IPAddress', G_IP_Address);
         EinvoiceHttpHeader.Add('Content-Type', 'application/json');
-        EinvoiceHttpHeader.Add('user_name', GSTRegistrationNo."User Name");
+        EinvoiceHttpHeader.Add('user_name', GSTRegistrationNo."APIS_User Name");
         EinvoiceHttpHeader.Add('Gstin', GSTRegistrationNo.Code);
         EinvoiceHttpRequest.Content := EinvoiceHttpContent;
         EinvoiceHttpRequest.SetRequestUri(G_E_Invoice_URL);
@@ -1240,11 +1240,11 @@ codeunit 50005 "E-Invoice Generation"
                             RecRef.Get(TransferShipmentHeader.RecordId);
                             if QRGenerator.GenerateQRCodeImage(QRText, TempBlob) then begin
                                 if TempBlob.HasValue() then begin
-                                    FldRef := RecRef.Field(TransferShipmentHeader.FieldNo("QR Code"));
-                                    TempBlob.ToRecordRef(RecRef, TransferShipmentHeader.FieldNo("QR Code"));
-                                    RecRef.Field(TransferShipmentHeader.FieldNo("IRN Hash")).Value := IRNNo;
-                                    RecRef.Field(TransferShipmentHeader.FieldNo("Acknowledgement No.")).Value := AckNo;
-                                    RecRef.Field(TransferShipmentHeader.FieldNo("Acknowledgement Date")).Value := AckDate;
+                                    FldRef := RecRef.Field(TransferShipmentHeader.FieldNo("APIS_QR Code"));
+                                    TempBlob.ToRecordRef(RecRef, TransferShipmentHeader.FieldNo("APIS_QR Code"));
+                                    RecRef.Field(TransferShipmentHeader.FieldNo("APIS_IRN Hash")).Value := IRNNo;
+                                    RecRef.Field(TransferShipmentHeader.FieldNo("APIS_Acknowledgement No.")).Value := AckNo;
+                                    RecRef.Field(TransferShipmentHeader.FieldNo("APIS_Acknowledgement Date")).Value := AckDate;
                                     IRNGenerated := true;
                                     RecRef.Modify();
                                     Message('E-Invoice Generated Successfully!!');
@@ -1368,7 +1368,7 @@ codeunit 50005 "E-Invoice Generation"
         EinvoiceHttpHeader.Add('client_secret', EInvoiceSetUp."Client Secret");
         EinvoiceHttpHeader.Add('IPAddress', EInvoiceSetUp."IP Address");
         EinvoiceHttpHeader.Add('Content-Type', 'application/json');
-        EinvoiceHttpHeader.Add('user_name', GSTRegistrationNos."User Name");
+        EinvoiceHttpHeader.Add('user_name', GSTRegistrationNos."APIS_User Name");
         EinvoiceHttpHeader.Add('Gstin', GSTRegistrationNos.Code);
         EinvoiceHttpRequest.Content := EinvoiceHttpContent;
         EinvoiceHttpRequest.SetRequestUri(EInvoiceSetUp."E-Invoice URl");
@@ -1434,7 +1434,7 @@ codeunit 50005 "E-Invoice Generation"
                         if CnCl_SalesInvoiceHeader.get(DocNo) then begin
                             if IrnCancel then begin
                                 CnCl_SalesInvoiceHeader."IRN Hash" := IRNNo;
-                                CnCl_SalesInvoiceHeader."Irn Cancel DateTime" := CancelDateTime;
+                                CnCl_SalesInvoiceHeader."APIS_Irn Cancel DateTime" := CancelDateTime;
                                 CnCl_SalesInvoiceHeader.Modify();
                             end;
                         end;
@@ -1468,7 +1468,7 @@ codeunit 50005 "E-Invoice Generation"
                         if CnCl_SalesCrMemoHeader.get(DocNo) then begin
                             if IrnCancel then begin
                                 CnCl_SalesCrMemoHeader."IRN Hash" := IRNNo;
-                                CnCl_SalesCrMemoHeader."Irn Cancel DateTime" := CancelDateTime;
+                                CnCl_SalesCrMemoHeader."APIS_Irn Cancel DateTime" := CancelDateTime;
                                 CnCl_SalesCrMemoHeader.Modify();
                             end;
                         end;
@@ -1501,8 +1501,8 @@ codeunit 50005 "E-Invoice Generation"
                         end;
                         if CnCl_TransferShipmentHeader.get(DocNo) then begin
                             if IrnCancel then begin
-                                CnCl_TransferShipmentHeader."IRN Hash" := IRNNo;
-                                CnCl_TransferShipmentHeader."Irn Cancel DateTime" := CancelDateTime;
+                                CnCl_TransferShipmentHeader."APIS_IRN Hash" := IRNNo;
+                                CnCl_TransferShipmentHeader."APIS_Irn Cancel DateTime" := CancelDateTime;
                                 CnCl_TransferShipmentHeader.Modify();
                             end;
                         end;
@@ -1525,12 +1525,12 @@ codeunit 50005 "E-Invoice Generation"
                 begin
                     if Cncl_SalesInvoiceHeader.get(DocNo) then begin
                         Cncl_SalesInvoiceHeader.TestField("IRN Hash");
-                        Cncl_SalesInvoiceHeader.TestField("Cancel Remarks");
+                        Cncl_SalesInvoiceHeader.TestField("APIS_Cancel Remarks");
                         Cncl_SalesInvoiceHeader.TestField("Cancel Reason");
                         Cncl_IRNPayload.Add('action', 'CANCEL');
                         Cncl_IRNPayload.Add('IRNNo', Cncl_SalesInvoiceHeader."IRN Hash");
                         Cncl_IRNPayload.Add('CancelReason', (GetCancelReasonSaleInvHeader(Cncl_SalesInvoiceHeader)));
-                        Cncl_IRNPayload.Add('CancelRemarks', Format(Cncl_SalesInvoiceHeader."Cancel Remarks"));
+                        Cncl_IRNPayload.Add('CancelRemarks', Format(Cncl_SalesInvoiceHeader."APIS_Cancel Remarks"));
                         Cncl_IRNPayload.WriteTo(CnclBody);
                     end;
                 end;
@@ -1538,25 +1538,25 @@ codeunit 50005 "E-Invoice Generation"
                 begin
                     if Cncl_SalesCrMemoHeader.get(DocNo) then begin
                         Cncl_SalesCrMemoHeader.TestField("IRN Hash");
-                        Cncl_SalesCrMemoHeader.TestField("Cancel Remarks");
+                        Cncl_SalesCrMemoHeader.TestField("APIS_Cancel Remarks");
                         Cncl_SalesCrMemoHeader.TestField("Cancel Reason");
                         Cncl_IRNPayload.Add('action', 'CANCEL');
                         Cncl_IRNPayload.Add('IRNNo', Cncl_SalesCrMemoHeader."IRN Hash");
                         Cncl_IRNPayload.Add('CancelReason', (GetCancelReasonSalesCrMemoHeader(Cncl_SalesCrMemoHeader)));
-                        Cncl_IRNPayload.Add('CancelRemarks', Format(Cncl_SalesCrMemoHeader."Cancel Remarks"));
+                        Cncl_IRNPayload.Add('CancelRemarks', Format(Cncl_SalesCrMemoHeader."APIS_Cancel Remarks"));
                         Cncl_IRNPayload.WriteTo(CnclBody);
                     end;
                 end;
             DocumentType::"Transfer Shipment":
                 begin
                     if Cncl_TransferShipment.get(DocNo) then begin
-                        Cncl_TransferShipment.TestField("IRN Hash");
-                        Cncl_TransferShipment.TestField("Cancel Remarks");
-                        Cncl_TransferShipment.TestField("Cancel Reason");
+                        Cncl_TransferShipment.TestField("APIS_IRN Hash");
+                        Cncl_TransferShipment.TestField("APIS_Cancel Remarks");
+                        Cncl_TransferShipment.TestField("APIS_Cancel Reason");
                         Cncl_IRNPayload.Add('action', 'CANCEL');
-                        Cncl_IRNPayload.Add('IRNNo', Cncl_TransferShipment."IRN Hash");
+                        Cncl_IRNPayload.Add('IRNNo', Cncl_TransferShipment."APIS_IRN Hash");
                         Cncl_IRNPayload.Add('CancelReason', (GetCancelReasonTrnsShpemntHeader(Cncl_TransferShipment)));
-                        Cncl_IRNPayload.Add('CancelRemarks', Format(Cncl_TransferShipment."Cancel Remarks"));
+                        Cncl_IRNPayload.Add('CancelRemarks', Format(Cncl_TransferShipment."APIS_Cancel Remarks"));
                         Cncl_IRNPayload.WriteTo(CnclBody);
                     end;
                 end;
@@ -1590,15 +1590,15 @@ codeunit 50005 "E-Invoice Generation"
         TrnsfrShipmentHeader.Reset();
         TrnsfrShipmentHeader.SetRange("No.", RecTransferShipmentHeader."No.");
         if TrnsfrShipmentHeader.FindFirst() then begin
-            if TrnsfrShipmentHeader."Cancel Reason" = TrnsfrShipmentHeader."Cancel Reason"::" " then
+            if TrnsfrShipmentHeader."APIS_Cancel Reason" = TrnsfrShipmentHeader."APIS_Cancel Reason"::" " then
                 exit(0);
-            if TrnsfrShipmentHeader."Cancel Reason" = TrnsfrShipmentHeader."Cancel Reason"::"Data Entry Mistake" then
+            if TrnsfrShipmentHeader."APIS_Cancel Reason" = TrnsfrShipmentHeader."APIS_Cancel Reason"::"Data Entry Mistake" then
                 exit(1);
-            if TrnsfrShipmentHeader."Cancel Reason" = TrnsfrShipmentHeader."Cancel Reason"::Duplicate then
+            if TrnsfrShipmentHeader."APIS_Cancel Reason" = TrnsfrShipmentHeader."APIS_Cancel Reason"::Duplicate then
                 exit(2);
-            if TrnsfrShipmentHeader."Cancel Reason" = TrnsfrShipmentHeader."Cancel Reason"::"Order Canceled" then
+            if TrnsfrShipmentHeader."APIS_Cancel Reason" = TrnsfrShipmentHeader."APIS_Cancel Reason"::"Order Canceled" then
                 exit(3);
-            if TrnsfrShipmentHeader."Cancel Reason" = TrnsfrShipmentHeader."Cancel Reason"::Other then
+            if TrnsfrShipmentHeader."APIS_Cancel Reason" = TrnsfrShipmentHeader."APIS_Cancel Reason"::Other then
                 exit(4);
         end;
     end;

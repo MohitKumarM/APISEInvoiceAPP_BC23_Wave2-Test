@@ -2,47 +2,56 @@ tableextension 50154 EInvTransferShipmentHeader extends "Transfer Shipment Heade
 {
     fields
     {
-        field(50150; "QR Code"; Blob)
+        field(50160; "APIS_QR Code"; Blob)
         {
             Subtype = Bitmap;
             DataClassification = ToBeClassified;
+            Caption = 'QR Code';
         }
-        field(50151; "IRN Hash"; Text[100])
+        field(50161; "APIS_IRN Hash"; Text[100])
         {
             DataClassification = ToBeClassified;
+            Caption = 'IRN Hash';
         }
-        field(50152; "Acknowledgement No."; Code[50])
+        field(50162; "APIS_Acknowledgement No."; Code[50])
         {
             DataClassification = ToBeClassified;
+            Caption = 'Acknowledgement No.';
         }
-        field(50153; "Acknowledgement Date"; DateTime)
+        field(50163; "APIS_Acknowledgement Date"; DateTime)
         {
             DataClassification = ToBeClassified;
+            Caption = 'Acknowledgement Date';
         }
-        field(50154; "Cancel Remarks"; Enum "Cancel Remarks")
+        field(50164; "APIS_Cancel Remarks"; Enum "Cancel Remarks")
         {
             DataClassification = ToBeClassified;
+            Caption = 'Cancel Remarks';
         }
-        field(50155; "Cancel Reason"; Enum "e-Invoice Cancel Reason")
+        field(50165; "APIS_Cancel Reason"; Enum "e-Invoice Cancel Reason")
         {
             DataClassification = ToBeClassified;
+            Caption = 'Cancel Reason';
         }
-        field(50156; "Irn Cancel DateTime"; DateTime)
+        field(50166; "APIS_Irn Cancel DateTime"; DateTime)
         {
             DataClassification = ToBeClassified;
+            Caption = 'Irn Cancel DateTime';
         }
-        field(50157; "E-Way Bill Date Time"; DateTime)
+        field(50167; "APIS_E-Way Bill Date Time"; DateTime)
         {
             DataClassification = ToBeClassified;
+            Caption = 'E-Way Bill Date Time';
         }
-        field(50158; "E-Way Bill No."; Text[50])
+        field(50168; "APIS_E-Way Bill No."; Text[50])
         {
             Caption = 'E-Way Bill No.';
             DataClassification = CustomerContent;
         }
-        field(50159; "E-Way Bill Cancel DateTime"; DateTime)
+        field(50169; "APIS_E-Way Bill CancelDateTime"; DateTime)
         {
             DataClassification = ToBeClassified;
+            Caption = 'E-Way Bill Cancel DateTime';
         }
     }
 }

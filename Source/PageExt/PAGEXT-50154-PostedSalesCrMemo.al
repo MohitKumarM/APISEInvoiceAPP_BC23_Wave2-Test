@@ -20,31 +20,31 @@ pageextension 50154 EInvPostedSalesCrMemo extends "Posted Sales Credit Memo"
         }
         addafter("Cancel Reason")
         {
-            field("Cancel Remarks"; Rec."Cancel Remarks")
+            field("Cancel Remarks"; Rec."APIS_Cancel Remarks")
             {
                 ApplicationArea = all;
             }
-            field("Irn Cancel DateTime"; Rec."Irn Cancel DateTime")
-            {
-                ApplicationArea = all;
-                Editable = false;
-            }
-            field("LR/RR No."; Rec."LR/RR No.")
-            {
-                ApplicationArea = all;
-                Editable = true;
-            }
-            field("LR/RR Date"; Rec."LR/RR Date")
-            {
-                ApplicationArea = all;
-                Editable = true;
-            }
-            field("E-Way Bill Date Time"; Rec."E-Way Bill Date Time")
+            field("Irn Cancel DateTime"; Rec."APIS_Irn Cancel DateTime")
             {
                 ApplicationArea = all;
                 Editable = false;
             }
-            field("E-Way Bill Cancel DateTime"; Rec."E-Way Bill Cancel DateTime")
+            field("LR/RR No."; Rec."APIS_LR/RR No.")
+            {
+                ApplicationArea = all;
+                Editable = true;
+            }
+            field("LR/RR Date"; Rec."APIS_LR/RR Date")
+            {
+                ApplicationArea = all;
+                Editable = true;
+            }
+            field("E-Way Bill Date Time"; Rec."APIS_E-Way Bill Date Time")
+            {
+                ApplicationArea = all;
+                Editable = false;
+            }
+            field("E-Way Bill Cancel DateTime"; Rec."APIS_E-Way Bill CancelDateTime")
             {
                 ApplicationArea = all;
                 Editable = false;
@@ -109,7 +109,7 @@ pageextension 50154 EInvPostedSalesCrMemo extends "Posted Sales Credit Memo"
                     begin
                         if Confirm('Do you want to Cancel Irn No.?', false) then begin
                             Rec.TestField("IRN Hash");
-                            Rec.TestField("Irn Cancel DateTime", 0DT);
+                            Rec.TestField("APIS_Irn Cancel DateTime", 0DT);
                             Clear(EInvoiceGeneration);
                             EInvoiceGeneration.CancelIRN(Rec."No.", 2);
                         end
@@ -128,7 +128,7 @@ pageextension 50154 EInvPostedSalesCrMemo extends "Posted Sales Credit Memo"
                     begin
                         if Confirm('Do you want to Generate E-Way Bill No.?', false) then begin
                             Rec.TestField("IRN Hash");
-                            Rec.TestField("Irn Cancel DateTime", 0DT);
+                            Rec.TestField("APIS_Irn Cancel DateTime", 0DT);
                             Rec.TestField("E-Way Bill No.", '');
                             Clear(EWaybillGeneration);
                             EWaybillGeneration.GenerateEWayBillFromIRN(Rec."No.", 2);
@@ -144,7 +144,7 @@ pageextension 50154 EInvPostedSalesCrMemo extends "Posted Sales Credit Memo"
                         EWaybillGeneration: Codeunit "E-Way Bill Generartion";
                     begin
                         if Confirm('Do you want to Canel E-Way Bill No.?', false) then begin
-                            Rec.TestField("E-Way Bill Cancel DateTime", 0DT);
+                            Rec.TestField("APIS_E-Way Bill CancelDateTime", 0DT);
                             Rec.TestField("E-Way Bill No.");
                             Clear(EWaybillGeneration);
                             EWaybillGeneration.CancelEWayBill(Rec."No.", 2);
